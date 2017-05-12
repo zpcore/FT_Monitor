@@ -1,0 +1,21 @@
+000:		load_ft	a000		
+001:		load_ft	a001		
+002:		and	s000	s001	
+003:		load_ft	a001		
+004:		not	s003		
+005:		and	s002	s004	
+006:		load_ft	a001		
+007:		boxbox	s006		5
+008:		and	s005	s007	
+009:		load_ft	a000		
+010:		boxdot	s009		5 10
+011:		and	s008	s010	
+012:		load_ft	a000		
+013:		load_ft	a001		
+014:		and	s012	s013	
+015:		and	s011	s014	
+016:		load_ft	a001		
+017:		load_ft	a000		
+018:		until	s016	s017	5 10
+019:		and	s015	s018	
+020:		end	s019		
