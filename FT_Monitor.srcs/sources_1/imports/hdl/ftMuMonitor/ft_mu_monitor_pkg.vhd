@@ -37,17 +37,8 @@ package ft_mu_monitor_pkg is
 
   type ft_queue_in_t is record
     number             : std_logic_vector(log2c(NUMBER_OF_QUEUES) - 1 downto 0);
-    config_data        : std_logic_vector(40 - 1 downto 0);
-    config_write       : std_logic;
-    --sel       : std_logic;
-    data               : ft_tuple_t;
-    add                : std_logic;
-    flush              : std_logic;
-    delete_head        : std_logic;
-    update_input_level : std_logic;
-    sync_result_write  : std_logic;
-    input_level        : std_logic_vector(TIMESTAMP_WIDTH - 1 downto 0);
-    sync_data          : ft_logic_t;
+    data_in_op1        : ft_tuple_t;
+    data_in_op2        : ft_tuple_t;
   end record;
 
   type ft_queue_async_out_t is record
