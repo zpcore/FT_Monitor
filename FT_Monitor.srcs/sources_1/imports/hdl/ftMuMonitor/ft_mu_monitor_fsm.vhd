@@ -606,6 +606,7 @@ begin
             end if;
 
             nxt.result.time  := this.op1.head.time;
+
             nxt.result.value := not this.op1.head.value;
 
             case this.op1_sync is
@@ -863,18 +864,18 @@ begin
         queue_i.sync_result_write <= '1';
 
         -- only for simulation
-        subformula_ram(to_integer(unsigned(this.programCounter))-1).async_maybe <= not this.new_result;
-        if this.new_result = '1' then
-          subformula_ram(to_integer(unsigned(this.programCounter))-1).async_result <= this.result;
-          case this.command.command is
-            when OP_FT_DIAMONDDIAMOND |
-              OP_FT_DIAMONDDOT =>
-              subformula_ram(to_integer(unsigned(this.programCounter))-1).async_result.value <= not this.result.value;
-            when others =>
-              null;
-          end case;
-        end if;
-        subformula_ram(to_integer(unsigned(this.programCounter))-1).sync_result <= this.result_sync;
+        --subformula_ram(to_integer(unsigned(this.programCounter))-1).async_maybe <= not this.new_result;
+        --if this.new_result = '1' then
+        --  subformula_ram(to_integer(unsigned(this.programCounter))-1).async_result <= this.result;
+        --  case this.command.command is
+        --    when OP_FT_DIAMONDDIAMOND |
+        --      OP_FT_DIAMONDDOT =>
+        --      subformula_ram(to_integer(unsigned(this.programCounter))-1).async_result.value <= not this.result.value;
+        --    when others =>
+        --      null;
+        --  end case;
+        --end if;
+        --subformula_ram(to_integer(unsigned(this.programCounter))-1).sync_result <= this.result_sync;
         
       when UPDATE_Q1 =>
         if this.command.op1.is_memory_addr = '1' and this.command.op1.is_immediate = '0' then

@@ -24,9 +24,12 @@ use work.math_pkg.all;
 
 entity tb is
   generic (
-    imemFilePath  : string := "D:\XilinxProject\FT_Monitor\FT_Monitor.srcs\sources_1\imports\FT_Monitor\TACAS_examples.imem";
-    inputFilePath : string := "D:\XilinxProject\FT_Monitor\FT_Monitor.srcs\sources_1\imports\FT_Monitor\TACAS_examples.trc";
-    intFilePath   : string := "D:\XilinxProject\FT_Monitor\FT_Monitor.srcs\sources_1\imports\FT_Monitor\TACAS_examples.imem.int"
+    imemFilePath  : string := "D:\XilinxProject\FT_Monitor\FT_Monitor.srcs\sources_1\imports\FT_Monitor\imem.imem";
+    inputFilePath : string := "D:\XilinxProject\FT_Monitor\FT_Monitor.srcs\sources_1\imports\FT_Monitor\until_0.trc";
+    intFilePath   : string := "D:\XilinxProject\FT_Monitor\FT_Monitor.srcs\sources_1\imports\FT_Monitor\imem.imem.int"
+    --imemFilePath  : string := "D:\XilinxProject\FT_Monitor\FT_Monitor.srcs\sources_1\imports\FT_Monitor\TACAS_examples.imem";
+    --inputFilePath : string := "D:\XilinxProject\FT_Monitor\FT_Monitor.srcs\sources_1\imports\FT_Monitor\TACAS_examples.trc";
+    --intFilePath   : string := "D:\XilinxProject\FT_Monitor\FT_Monitor.srcs\sources_1\imports\FT_Monitor\TACAS_examples.imem.int"
     );
 end entity;
 
@@ -131,7 +134,7 @@ trigger_signal : process
 begin
   wait until s_sutclk = '1';
   s_trigger <= '1';
-  wait_cycle(s_clk, 40);
+  wait_cycle(s_clk, 15);
   s_trigger <= '0';
   wait until s_sutclk = '0';
 end process;

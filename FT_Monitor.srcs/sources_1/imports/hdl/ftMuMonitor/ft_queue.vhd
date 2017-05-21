@@ -100,6 +100,7 @@ begin
       );
 
   -- write pointer and tail element
+  -- Pei: similar to control ram in Andreas's thesis. queue_number -> write ptr & read ptr
   writeP_memory_inst : dp_ram
     generic map(
       ADDR_WIDTH => log2c(NUMBER_OF_QUEUES),
@@ -130,6 +131,7 @@ begin
       );
 
   -- input level
+  -- Pei: Threshold
   input_level_inst : dp_ram
     generic map(
       ADDR_WIDTH => log2c(NUMBER_OF_QUEUES),
@@ -159,6 +161,7 @@ begin
       wrData => sync_data_wrData
       );
 
+  --pei: write async res
   -- data memory
   data_memory_inst : sp_ram_wt
     generic map(
@@ -170,7 +173,7 @@ begin
       addr   => data_addr,
       wrData => data_wrData,
       write  => data_write,
-      rdData => data_rdData
+      rdData => data_rdData--Pei: output of async data we need to other oberver
       );
 
   sync_data_ram : dp_ram
@@ -216,7 +219,9 @@ begin
     -- memory reads
     size_mask     := config_rdData(2*log2c(NUMBER_OF_QUEUE_ELEMENTS) - 1 downto log2c(NUMBER_OF_QUEUE_ELEMENTS));
     start_address := config_rdData(log2c(NUMBER_OF_QUEUE_ELEMENTS) - 1 downto 0);
+    --Pei: write pointer
     writeP        := writeP_rdData(log2c(NUMBER_OF_QUEUE_ELEMENTS) + FT_TUPLE_T_LEN - 1 downto FT_TUPLE_T_LEN);
+    --Pei: ???
     tailElement   := writeP_rdData(FT_TUPLE_T_LEN - 1 downto 0);
 
     -- defaults
@@ -270,7 +275,7 @@ begin
     -- process control signals
     if i.add = '1' then
       if i.data.time > input_level_rdData or input_level_rdData = std_logic_vector(to_unsigned(0, TIMESTAMP_WIDTH)) then  -- do not add old data
-        writeP_write <= '1';
+        writeP_write <= '1';  --Pei: write enable signal-> write the increased write pointer value
         data_write   <= '1';
         if nxt.empty = '0' and tailElement(FT_TUPLE_T_LEN-1) = i.data.value then  -- queue aggregation
           data_addr     <= start_address + writeP - 1;
